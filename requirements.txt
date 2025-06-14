@@ -33,7 +33,6 @@ tqdm==4.56.0
 twilio==7.15.0
 tzlocal==2.1
 update-checker==0.18.0
-urllib3==1.26.3
 virtualenv==20.31.2
 websocket-client==0.57.0
 Werkzeug==3.1.3
