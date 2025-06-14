@@ -24,4 +24,4 @@ def create_bill():
 def import_from_shopify():
 	content = request.json()
 	print(content)
-    return content
+	return content
