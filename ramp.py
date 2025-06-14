@@ -25,6 +25,7 @@ def import_from_shopify():
 	data = request.get_json()
 	line_items = data.get("line_items")
 	for x in line_items:
+		print(x)
 		if x.product_id == "7819102093411":
 			create_bill()
 	return jsonify(data)
