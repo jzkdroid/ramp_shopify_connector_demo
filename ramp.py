@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,jsonify, request
 import requests
 
 
@@ -22,6 +22,5 @@ def create_bill():
 
 @app.route("/import_from_shopify", methods = ['POST'])
 def import_from_shopify():
-	content = request.json()
-	print(content)
-	return content
+	data = request.get_json()
+	return jsonify(data)
