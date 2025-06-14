@@ -18,3 +18,10 @@ def create_bill():
 	}
 	response = requests.request("POST", url, headers=headers, data=payload)
 	return response.json()
+
+
+@app.route("/import_from_shopify", methods = ['POST'])
+def import_from_shopify():
+	content = request.json()
+	print(content)
+    return content
