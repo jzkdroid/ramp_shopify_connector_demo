@@ -23,5 +23,5 @@ def create_bill():
 @app.route("/import_from_shopify", methods = ['POST'])
 def import_from_shopify():
 	data = request.get_json()
-	print(jsonify(data))
+	print(data)
 	return jsonify(data)
