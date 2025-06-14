@@ -17,6 +17,7 @@ def create_bill():
 	'Content-Type': 'application/json'
 	}
 	response = requests.request("POST", url, headers=headers, data=payload)
+	print(response.json())
 	return response.json()
 
 
