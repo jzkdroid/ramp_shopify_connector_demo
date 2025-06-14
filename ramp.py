@@ -23,5 +23,8 @@ def create_bill():
 @app.route("/import_from_shopify", methods = ['POST'])
 def import_from_shopify():
 	data = request.get_json()
-	print(data.get("line_items"))
+	line_items = data.get("line_items")
+	for x in line_items:
+		if x.product_id == "7819102093411":
+			create_bill()
 	return jsonify(data)
