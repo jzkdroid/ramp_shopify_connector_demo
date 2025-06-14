@@ -27,5 +27,6 @@ def import_from_shopify():
 	for x in line_items:
 		print(x)
 		if x.get("product_id") == "7819102093411":
+			print("We are calling ramp")
 			create_bill()
 	return jsonify(data)
