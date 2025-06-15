@@ -69,9 +69,9 @@ def get_bills():
 	print(response.json())
 	arr = np.array([])
 	for bills in response.json().get("data"):
-		row = [bills.get("invoice_number"), bills.get("line_items")[0].get("memo")]
+		row = bills.get("invoice_number"), bills.get("line_items")[0].get("memo")
 		np.append(arr, row)
-	headers = ['Invoice Number', 'Memo',"Hello"]
+	headers = ['Invoice Number', 'Memo']
 	df = pd.DataFrame(arr, columns=headers)
 	html = df.to_html()
 	print(html)
