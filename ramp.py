@@ -50,7 +50,7 @@ def import_from_shopify():
 	for x in line_items:
 		print(x.get("product_id"))
 		if str(x.get("product_id")) == "7819102093411":
-			print("We are calling ramp")
-			full_name = x.get("customer").get("first_name") + " " + x.get("customer").get("last_name")
+			print("Compiling customer name")
+			full_name = data.get("customer").get("first_name") + " " + data.get("customer").get("last_name")
 			create_bill(full_name)
 	return jsonify(data)
