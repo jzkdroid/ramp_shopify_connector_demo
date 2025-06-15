@@ -68,11 +68,11 @@ def get_bills():
 	response = requests.request("GET", url, headers=headers)
 	print(response.json())
 	arr = np.array([])
-	for bills in response.get_json():
+	for bills in response.json():
 		row = [bills.get("invoice_number"), bills.get("line_items")[0].get("memo")]
 		np.append(arr, row)
 	headers = ['Invoice Number', 'Memo']
 	df = pd.DataFrame(arr, columns=headers)
 	html = df.to_html()
 	print(html)
-	return df
+	return render_template()
