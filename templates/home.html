@@ -100,10 +100,10 @@
 	</div>
 
 	<table>
-  {%for row in tbl%}
+  {%for col in tbl%}
      <tr>
-        {%for col in row%}
-          <td>{{col}}</td>
+        {%for row in col%}
+          <td>{{row}}</td>
         {%endfor%}
      </tr>
   {%endfor%}
