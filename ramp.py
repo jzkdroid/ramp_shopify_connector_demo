@@ -29,7 +29,7 @@ def create_bill(full_name):
 			'amount': 470,
 			'memo': 'Custom Snowboard for ' + full_name
 			}],
-		'payment_method': 'PAID_MANUALLY',
+		'payment_method': 'ONE_TIME_CARD',
 		'vendor_contact_id': '69ecbbe1-330f-4bf0-bc25-27b8775113de',
 		'vendor_id': '864d239e-f5de-4c4c-a107-a65b4a9ecc5c'
 		}
