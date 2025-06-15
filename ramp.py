@@ -36,7 +36,7 @@ def create_bill(full_name):
 		'vendor_id': '864d239e-f5de-4c4c-a107-a65b4a9ecc5c'
 		}
 	headers = {
-	'Authorization': 'Bearer ramp_tok_VaFSGUo0G93LEWgkoQMG29GAs59eAMRtL1PZkIMS7L',
+	'Authorization': 'Bearer ramp_tok_CBTwCDSMBe94YVvhgudMVN1aPj6CMZuL7F3kw4wHaN',
 	'Content-Type': 'application/json'
 	}
 	response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
@@ -62,7 +62,7 @@ def get_bills():
 	todays_date_string = todays_date.strftime('%Y-%m-%d') + "T00:00:00"
 	url = "https://demo-api.ramp.com/developer/v1/bills?from_created_at=" + todays_date_string + "&vendor_id=864d239e-f5de-4c4c-a107-a65b4a9ecc5c"
 	headers = {
-	'Authorization': 'Bearer ramp_tok_VaFSGUo0G93LEWgkoQMG29GAs59eAMRtL1PZkIMS7L',
+	'Authorization': 'Bearer ramp_tok_CBTwCDSMBe94YVvhgudMVN1aPj6CMZuL7F3kw4wHaN',
 	'Content-Type': 'application/json'
 	}
 	response = requests.request("GET", url, headers=headers)
