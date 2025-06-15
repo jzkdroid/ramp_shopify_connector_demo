@@ -30,8 +30,8 @@ def get_bills():
 @app.route("/")
 def hello_world():
 	table = get_bills()
-	tbl1=zip(*table)
-	return render_template('home.html', list(map(list, zip(*tbl1))))
+	transposed_tbl = list(map(list, zip(*table)))
+	return render_template('home.html', tbl=transposed_tbl)
 
 @app.route("/create_bill")
 def create_bill(full_name):
