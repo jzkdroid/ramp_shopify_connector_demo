@@ -75,4 +75,4 @@ def get_bills():
 	df = pd.DataFrame(arr, columns=headers)
 	html = df.to_html()
 	print(html)
-	return html
+	return df
