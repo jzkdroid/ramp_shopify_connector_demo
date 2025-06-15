@@ -9,9 +9,11 @@ import pandas as pd
 
 app = Flask(__name__)
 
+table = get_bills()
+
 @app.route("/")
 def hello_world():
-	return render_template('home.html')
+	return render_template('home.html', , tbl=zip(*table))
 
 @app.route("/create_bill")
 def create_bill(full_name):
@@ -67,13 +69,8 @@ def get_bills():
 	}
 	response = requests.request("GET", url, headers=headers)
 	print(response.json())
-	arr = np.empty((5, 2))
+	arr = [['Invoice Number', 'Memo']]
 	for bills in response.json().get("data"):
-		print("Getting Row")
-		row = (str(bills.get("invoice_number")), str(bills.get("line_items")[0].get("memo")))
-		np.append(arr, row)
-	headers = ['Invoice Number', 'Memo']
-	df = pd.DataFrame(arr, columns=headers)
-	html = df.to_html()
-	print(html)
-	return html
+		row = [str(bills.get("invoice_number")), str(bills.get("line_items")[0].get("memo"))]
+		arr.append(row)
+	return arr
