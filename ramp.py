@@ -3,6 +3,8 @@ import requests
 import datetime
 import random
 import json
+import numpy as np
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -27,14 +29,14 @@ def create_bill(full_name):
 		'line_items': [ {
 			'accounting_field_selections': [],
 			'amount': 470,
-			'memo': 'Custom Snowboard for ' + full_name
+			'memo': full_name
 			}],
 		'payment_method': 'ONE_TIME_CARD',
 		'vendor_contact_id': '69ecbbe1-330f-4bf0-bc25-27b8775113de',
 		'vendor_id': '864d239e-f5de-4c4c-a107-a65b4a9ecc5c'
 		}
 	headers = {
-	'Authorization': 'Bearer ramp_tok_VE6WxSDD8lEdtMYcSxjRboLkw30SwMKEunIusiMZ8L',
+	'Authorization': 'Bearer ramp_tok_VaFSGUo0G93LEWgkoQMG29GAs59eAMRtL1PZkIMS7L',
 	'Content-Type': 'application/json'
 	}
 	response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
@@ -53,3 +55,24 @@ def import_from_shopify():
 			memo = "Custom snowboard for " + data.get("customer").get("first_name") + " " + data.get("customer").get("last_name") + ". Order Number: " + str(data.get("order_number"))
 			create_bill(memo)
 	return jsonify(data)
+
+@app.route("/get_bills", methods = ['GET'])
+def get_bills():
+	todays_date = datetime.datetime.today()
+	todays_date_string = todays_date.strftime('%Y-%m-%d') + "T00:00:00"
+	url = "https://demo-api.ramp.com/developer/v1/bills?from_created_at=" + todays_date_string + "&vendor_id=864d239e-f5de-4c4c-a107-a65b4a9ecc5c"
+	headers = {
+	'Authorization': 'Bearer ramp_tok_VaFSGUo0G93LEWgkoQMG29GAs59eAMRtL1PZkIMS7L',
+	'Content-Type': 'application/json'
+	}
+	response = requests.request("GET", url, headers=headers)
+	print(response.json())
+	arr = np.array([])
+	for bills in response.get_json():
+		row = [bills.get("invoice_number"), bills.get("line_items")[0].get("memo")]
+		np.append(arr, row)
+	headers = ['Invoice Number', 'Memo']
+	df = pd.DataFrame(arr, columns=headers)
+	html = df.to_html()
+	print(html)
+	return html
