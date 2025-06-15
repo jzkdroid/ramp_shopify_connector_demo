@@ -22,7 +22,7 @@ def create_bill(full_name):
 		'due_at': due_date_string,
 		'entity_id': 'bdbe9108-1d28-41f3-995e-eb4e1bde3c12',
 		'invoice_currency': 'USD',
-		'invoice_number': random.randint(3, 9),
+		'invoice_number': str(random.randint(1, 99999)),
 		'issued_at': todays_date_string,
 		'line_items': [ {
 			'accounting_field_selections': [],
