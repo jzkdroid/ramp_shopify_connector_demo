@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, jsonify
 import requests
 import datetime
 import random
+import json
 
 
 app = Flask(__name__)
@@ -36,7 +37,7 @@ def create_bill(full_name):
 	'Authorization': 'Bearer ramp_tok_VE6WxSDD8lEdtMYcSxjRboLkw30SwMKEunIusiMZ8L',
 	'Content-Type': 'application/json'
 	}
-	response = requests.request("POST", url, headers=headers, data=payload)
+	response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
 	print(request.json())
 	print(response.json())
 	return response.json()
