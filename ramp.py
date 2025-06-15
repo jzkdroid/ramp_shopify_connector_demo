@@ -67,9 +67,9 @@ def get_bills():
 	}
 	response = requests.request("GET", url, headers=headers)
 	print(response.json())
-	arr = np.array()
+	arr = np.empty((0, 2))
 	for bills in response.json().get("data"):
-		row = bills.get("invoice_number"), bills.get("line_items")[0].get("memo")
+		row = (bills.get("invoice_number"), bills.get("line_items")[0].get("memo"))
 		np.append(arr, row)
 	headers = ['Invoice Number', 'Memo']
 	df = pd.DataFrame(arr, columns=headers)
