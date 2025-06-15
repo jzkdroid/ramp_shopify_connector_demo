@@ -19,7 +19,7 @@ def get_bills():
 	'Content-Type': 'application/json'
 	}
 	response = requests.request("GET", url, headers=headers)
-	print(response.json())
+	# print(response.json())
 	arr = [['Invoice Number', 'Memo']]
 	for bills in response.json().get("data"):
 		row = [str(bills.get("invoice_number")), str(bills.get("line_items")[0].get("memo"))]
@@ -30,6 +30,7 @@ def get_bills():
 @app.route("/")
 def hello_world():
 	table = get_bills()
+	print(table)
 	transposed_tbl = list(map(list, zip(*table)))
 	return render_template('home.html', tbl=transposed_tbl)
 
