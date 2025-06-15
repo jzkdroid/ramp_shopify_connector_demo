@@ -67,7 +67,7 @@ def get_bills():
 	}
 	response = requests.request("GET", url, headers=headers)
 	print(response.json())
-	arr = np.empty((0, 2))
+	arr = np.empty((5, 2))
 	for bills in response.json().get("data"):
 		row = (bills.get("invoice_number"), bills.get("line_items")[0].get("memo"))
 		np.append(arr, row)
