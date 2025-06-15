@@ -1,25 +1,43 @@
 from flask import Flask, request, render_template, jsonify
 import requests
 import datetime
+import random
 
 
 app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return render_template('home.html')
+	return render_template('home.html')
 
 @app.route("/create_bill")
-def create_bill():
-	due_date = datetime.datetime.today() + datetime.timedelta(days=60)
+def create_bill(full_name):
+	todays_date = datetime.datetime.today()
+	due_date = todays_date + datetime.timedelta(days=60)
+	todays_date_string = todays_date.strftime('%Y-%m-%d')
 	due_date_string = due_date.strftime('%Y-%m-%d')
 	url = "https://demo-api.ramp.com/developer/v1/bills"
-	payload="{\n    \"due_at\": \"" + str(due_date_string) + "\",\n    \"entity_id\": \"bdbe9108-1d28-41f3-995e-eb4e1bde3c12\",\n    \"invoice_currency\": \"USD\",\n    \"invoice_number\": \"12345676543\",\n    \"issued_at\": \"2025-06-13\",\n    \"payment_method\": \"PAID_MANUALLY\",\n    \"vendor_contact_id\": \"2b355861-0305-4505-947c-9b8bb66f61c1\",\n    \"vendor_id\": \"ea58ca32-984a-4187-9fb7-ad8ba85b185b\",\n    \"line_items\": [\n        {\n            \"accounting_field_selections\": [],\n            \"amount\": 100,\n            \"memo\": \"Printing services\"\n        }\n    ]\n}"
+	payload={
+		'due_at': due_date_string,
+		'entity_id': 'bdbe9108-1d28-41f3-995e-eb4e1bde3c12',
+		'invoice_currency': 'USD',
+		'invoice_number': random.randint(3, 9),
+		'issued_at': todays_date_string,
+		'line_items': [ {
+			'accounting_field_selections': [],
+			'amount': 470,
+			'memo': 'Custom Snowboard for ' + full_name
+			}],
+		'payment_method': 'PAID_MANUALLY',
+		'vendor_contact_id': '69ecbbe1-330f-4bf0-bc25-27b8775113de',
+		'vendor_id': '864d239e-f5de-4c4c-a107-a65b4a9ecc5c'
+		}
 	headers = {
 	'Authorization': 'Bearer ramp_tok_VE6WxSDD8lEdtMYcSxjRboLkw30SwMKEunIusiMZ8L',
 	'Content-Type': 'application/json'
 	}
 	response = requests.request("POST", url, headers=headers, data=payload)
+	print(request.json())
 	print(response.json())
 	return response.json()
 
@@ -32,5 +50,6 @@ def import_from_shopify():
 		print(x.get("product_id"))
 		if str(x.get("product_id")) == "7819102093411":
 			print("We are calling ramp")
-			create_bill()
+			full_name = x.get("customer").get("first_name") + " " + x.get("customer").get("last_name")
+			create_bill(full_name)
 	return jsonify(data)
