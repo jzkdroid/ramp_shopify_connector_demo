@@ -33,12 +33,12 @@
 				padding-left: 1.2rem;
 			}
 			.table {
-  font-size: 0.95rem;
-}
-.table th {
-  background-color: #f1f3f5;
-  font-weight: 600;
-}
+		font-size: 0.95rem;
+		}
+		.table th {
+		background-color: #f1f3f5;
+		font-weight: 600;
+		}
 		</style>
 	</head>
 	<body>
@@ -82,21 +82,25 @@
 			</div>
 			<div class="row justify-content-center text-center">
 				<div class="col-md-4 step">
+					<h3>1</h3>
 					<p>
 						After a purchase, Shopify sends a webhook to the Flask app with details about the cart and the customer.
 					</p>
 				</div>
 				<div class="col-md-4 step">
+					<h3>2</h3>
 					<p>
 						The app detects that a custom snowboard was purchased and extracts both the quantity and buyer information.
 					</p>
 				</div>
 				<div class="col-md-4 step">
+					<h3>3</h3>
 					<p>
 						A <code>POST</code> request is made to the <code>/developer/v1/bills</code> endpoint on Ramp to create a bill using the cart data.
 					</p>
 				</div>
 				<div class="col-md-4 step">
+					<h3>4</h3>
 					<p>
 						A <code>GET</code> request is made to the same endpoint to display all bills created today for the vendor.
 					</p>
@@ -104,30 +108,29 @@
 			</div>
 		</div>
 		<div class="container mt-5">
-  <div class="section-title">
-    <h1>Custom Snowboard Bills</h1>
-  </div>
-  <div class="step">
-    <table class="table table-bordered table-striped table-hover align-middle mb-0">
-      <thead class="table-light">
-        <tr>
-          {% for header in tbl | map(attribute=0) %}
-            <th scope="col">{{ header }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for i in range(1, tbl[0]|length) %}
-          <tr>
-            {% for col in tbl %}
-              <td>{{ col[i] }}</td>
-            {% endfor %}
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-
+			<div class="section-title">
+				<h1>Custom Snowboard Bills</h1>
+			</div>
+			<div class="step">
+				<table class="table table-bordered table-striped table-hover align-middle mb-0">
+					<thead class="table-light">
+						<tr>
+							{% for header in tbl | map(attribute=0) %}
+								<th scope="col">{{ header }}</th>
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in range(1, tbl[0]|length) %}
+							<tr>
+								{% for col in tbl %}
+									<td>{{ col[i] }}</td>
+								{% endfor %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</body>
 </html>
