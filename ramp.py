@@ -51,6 +51,6 @@ def import_from_shopify():
 		print(x.get("product_id"))
 		if str(x.get("product_id")) == "7819102093411":
 			print("Compiling customer name")
-			full_name = data.get("customer").get("first_name") + " " + data.get("customer").get("last_name")
-			create_bill(full_name)
+			memo = "Custom snowboard for " + data.get("customer").get("first_name") + " " + data.get("customer").get("last_name") + ". Order Number: " + data.get("order_number")
+			create_bill(memo)
 	return jsonify(data)
